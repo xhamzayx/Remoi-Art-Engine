@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net;"> -->
+    <meta http-equiv="Content-Security-Policy"
+content="
+  default-src 'self';
+  script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net;
+  style-src 'self';
+  img-src 'self' data:;
+  font-src 'self';
+">
+
+    <title>Remoi Art Engine</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Load p5.js from official CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>🎨 Remoi Art Engine</h1>
+        <div class="mode-switcher">
+            <button id="showcase-btn" class="active">Showcase</button>
+            <button id="editor-btn">Editor</button>
+        </div>
+    </div>
+
+    <!-- SHOWCASE MODE -->
+    <div id="showcase-mode" class="mode-container">
+        <div class="showcase-header">
+            <h2>Generative Art Gallery</h2>
+            <p>Watch beautiful code art. Changes every 5 seconds.</p>
+        </div>
+        
+        <div class="art-display">
+            <div id="showcase-canvas-container">
+                <!-- Canvas will be inserted here -->
+            </div>
+            <div class="art-info">
+                <h3 id="preset-title">Cosmic Spiral</h3>
+                <p id="preset-counter">Preset 1 of 5</p>
+                <button id="start-editing-btn" class="primary-btn">Start Creating Your Own Art</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDITOR MODE -->
+    <div id="editor-mode" class="mode-container" style="display: none;">
+        <div class="editor-header">
+            <h2>Code Editor</h2>
+            <p>Write p5.js code and see instant results</p>
+        </div>
+        
+        <div class="editor-wrapper">
+            <!-- Code Editor Panel -->
+            <div class="editor-panel">
+                <div class="editor-toolbar">
+                    <button id="run-code-btn" class="run-btn">▶ Run</button>
+                    <button id="stop-code-btn" class="stop-btn">⏹ Stop</button>
+                    <button id="clear-code-btn" class="clear-btn">Clear</button>
+                    <button id="export-btn" class="export-btn">Export</button>
+                    <button id="back-to-showcase-btn" class="back-btn">← Back</button>
+                    <input type="number" id="seed-input" placeholder="Seed (optional)" class="seed-input">
+                </div>
+                
+                <textarea id="code-editor" spellcheck="false">// Write your p5.js code here
+// Example: Simple animation
+
+let t = 0;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(0, 10);
+  fill(255, 100, 100);
+  noStroke();
+  ellipse(width/2 + sin(t) * 100, height/2 + cos(t * 1.5) * 50, 40, 40);
+  t += 0.05;
+}</textarea>
+                
+                <div class="examples-panel">
+                    <h3>Quick Examples</h3>
+                    <div class="example-buttons">
+                        <button class="example-btn" data-example="standard">Standard p5.js</button>
+                        <button class="example-btn" data-example="compact">Compact Format</button>
+                        <button class="example-btn" data-example="particles">Particles</button>
+                        <button class="example-btn" data-example="waves">Wave Field</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Preview Panel -->
+            <div class="preview-panel">
+                <div class="preview-header">
+                    <h3>Preview</h3>
+                    <div class="preview-controls">
+                        <span id="fps-counter">60 FPS</span>
+                        <span id="format-indicator">Format: p5.js</span>
+                    </div>
+                </div>
+                <div id="editor-canvas-container">
+                    <!-- Canvas will be inserted here -->
+                </div>
+                <div class="console-panel" id="console-output">
+                    <div class="console-header">Console</div>
+                    <div class="console-content">Ready to run code...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
